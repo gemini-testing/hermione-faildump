@@ -21,7 +21,7 @@ describe('FailCollector', () => {
         failCollector = failCollector || createFailCollector();
 
         fails.forEach((fail) => {
-            fail.fullTitle = sinon.stub().returns(fail.title);
+            fail.fullTitle = fail.fullTitle || sinon.stub().returns(fail.title);
 
             failCollector.addFail(fail);
         });
@@ -70,6 +70,15 @@ describe('FailCollector', () => {
         const faildump = generateFaildump([{title: 'test', browserId: 'bro'}, {title: 'test', browserId: 'bro'}]);
 
         assert.lengthOf(faildump['test.bro'], 2);
+    });
+
+    it('should trim full test title', () => {
+        const faildump = generateFaildump({
+            fullTitle: sinon.stub().returns('  test  '),
+            browserId: 'bro'
+        });
+
+        assert.ok(faildump['test.bro']);
     });
 
     describe('generation of faildump item', () => {
