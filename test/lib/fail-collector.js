@@ -23,12 +23,12 @@ describe('FailCollector', () => {
         fails.forEach((fail) => {
             fail.fullTitle = sinon.stub().returns(fail.title);
 
-            failCollector.addFail(fail)
+            failCollector.addFail(fail);
         });
         failCollector.generateReport();
 
         return JSON.parse(fs.writeFileSync.lastCall.args[1]);
-    }
+    };
 
     beforeEach(() => {
         sandbox.stub(fs, 'writeFileSync');
