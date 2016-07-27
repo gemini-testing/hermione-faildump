@@ -16,7 +16,7 @@ Add plugin to your configuration file:
 ```js
 module.exports = {
     plugins: {
-        'faildump': true
+        faildump: true
     }
 };
 ```
@@ -26,7 +26,7 @@ You can redefine the default report name this way:
 ```js
 module.exports = {
     plugins: {
-        'faildump': {
+        faildump: {
             targetFile: 'awesome-faildump.json'
         }
     }
