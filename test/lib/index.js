@@ -56,6 +56,12 @@ describe('hermione-faildump', () => {
         assert.calledWith(FailCollector.prototype.addFail, {some: 'data'});
     });
 
+    it('should do nothing if `ERROR` event was emitted without runnable', () => {
+        hermione.emit(hermione.events.ERROR, 'some-error', undefined);
+
+        assert.notCalled(FailCollector.prototype.addFail);
+    });
+
     it('should generate a faildump report on event `RUNNER_END`', () => {
         hermione.emit(hermione.events.RUNNER_END);
 
