@@ -38,12 +38,6 @@ describe('hermione-faildump', () => {
         assert.calledWithMatch(FailCollector.create, {hermione: 'config'}, {plugin: 'config'});
     });
 
-    it('should handle an error emitted by event `SUITE_FAIL`', () => {
-        hermione.emit(hermione.events.SUITE_FAIL, {some: 'data'});
-
-        assert.calledWith(FailCollector.prototype.addFail, {some: 'data'});
-    });
-
     it('should handle an error emmitted by event `TEST_FAIL`', () => {
         hermione.emit(hermione.events.TEST_FAIL, {some: 'data'});
 
