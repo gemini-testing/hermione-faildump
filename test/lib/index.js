@@ -38,12 +38,6 @@ describe('hermione-faildump', () => {
         assert.calledWithMatch(FailCollector.create, {hermione: 'config'}, {plugin: 'config'});
     });
 
-    it('should handle an error emitted by event `SUITE_FAIL`', () => {
-        hermione.emit(hermione.events.SUITE_FAIL, {some: 'data'});
-
-        assert.calledWith(FailCollector.prototype.addFail, {some: 'data'});
-    });
-
     it('should handle an error emmitted by event `TEST_FAIL`', () => {
         hermione.emit(hermione.events.TEST_FAIL, {some: 'data'});
 
@@ -60,6 +54,12 @@ describe('hermione-faildump', () => {
         hermione.emit(hermione.events.ERROR, null, {some: 'data'});
 
         assert.calledWith(FailCollector.prototype.addFail, {some: 'data'});
+    });
+
+    it('should do nothing if `ERROR` event was emitted without runnable', () => {
+        hermione.emit(hermione.events.ERROR, 'some-error', undefined);
+
+        assert.notCalled(FailCollector.prototype.addFail);
     });
 
     it('should generate a faildump report on event `RUNNER_END`', () => {
