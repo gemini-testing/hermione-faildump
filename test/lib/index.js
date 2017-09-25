@@ -4,6 +4,7 @@ const EventEmitter = require('events').EventEmitter;
 
 const hermioneEvents = require('hermione/lib/constants/runner-events');
 
+const config = require('../../lib/config');
 const faildump = require('../../lib');
 const FailCollector = require('../../lib/fail-collector');
 
@@ -33,9 +34,9 @@ describe('hermione-faildump', () => {
     afterEach(() => sandbox.restore());
 
     it('should pass hermione config and plugin config to a contructor of a fail collector', () => {
-        initHermioneWithPlugin({hermione: 'config'}, {plugin: 'config'});
+        initHermioneWithPlugin({hermione: 'config'});
 
-        assert.calledWithMatch(FailCollector.create, {hermione: 'config'}, {plugin: 'config'});
+        assert.calledWithMatch(FailCollector.create, {hermione: 'config'}, config());
     });
 
     it('should handle an error emitted by event `SUITE_FAIL`', () => {

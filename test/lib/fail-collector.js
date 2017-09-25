@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const _ = require('lodash');
 
-const defaults = require('../../lib/defaults');
+const config = require('../../lib/config');
 const FailCollector = require('../../lib/fail-collector');
 
 describe('FailCollector', () => {
@@ -13,7 +13,7 @@ describe('FailCollector', () => {
     const createFailCollector = (opts) => {
         opts = opts || {};
 
-        return FailCollector.create(opts.hermioneConfig, opts.pluginConfig);
+        return FailCollector.create(opts.hermioneConfig, config(opts.pluginConfig));
     };
 
     const generateFaildump = (fails, failCollector) => {
@@ -41,7 +41,7 @@ describe('FailCollector', () => {
 
         failCollector.generateReport();
 
-        assert.calledWith(fs.writeFileSync, defaults.targetFile);
+        assert.calledWith(fs.writeFileSync, config().targetFile);
     });
 
     it('should generate faildump report in the specified file', () => {
@@ -123,21 +123,21 @@ describe('FailCollector', () => {
         });
 
         it('should contain property `seleniumQuota` parsed from grid url auth', () => {
-            const failCollector = createFailCollector({hermioneConfig: {grid: 'http://login:pass@sg.ru:4444/wd/hub'}});
+            const failCollector = createFailCollector({hermioneConfig: {gridUrl: 'http://login:pass@sg.ru:4444/wd/hub'}});
             const faildump = generateFaildump({title: 'test', browserId: 'bro'}, failCollector);
 
             assert.equal(faildump['test.bro'][0].seleniumQuota, 'login');
         });
 
         it('should handle cases when grid url does not contain auth', () => {
-            const failCollector = createFailCollector({hermioneConfig: {grid: 'http://sg.ru:4444/wd/hub'}});
+            const failCollector = createFailCollector({hermioneConfig: {gridUrl: 'http://sg.ru:4444/wd/hub'}});
             const faildump = generateFaildump({title: 'test', browserId: 'bro'}, failCollector);
 
             assert.equal(faildump['test.bro'][0].seleniumQuota, '');
         });
 
         it('should handle cases when grid url does not contain password in auth', () => {
-            const failCollector = createFailCollector({hermioneConfig: {grid: 'http://login@sg.ru:4444/wd/hub'}});
+            const failCollector = createFailCollector({hermioneConfig: {gridUrl: 'http://login@sg.ru:4444/wd/hub'}});
             const faildump = generateFaildump({title: 'test', browserId: 'bro'}, failCollector);
 
             assert.equal(faildump['test.bro'][0].seleniumQuota, 'login');
