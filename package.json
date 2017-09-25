@@ -15,6 +15,7 @@
   "author": "Eugene Gavryushin <job.egavr@yandex.ru>",
   "license": "ISC",
   "dependencies": {
+    "gemini-configparser": "^0.4.0",
     "lodash": "^4.14.0"
   },
   "devDependencies": {
