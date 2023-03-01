@@ -8,7 +8,7 @@ const config = require('../../lib/config');
 const FailCollector = require('../../lib/fail-collector');
 
 describe('FailCollector', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     const createFailCollector = (opts) => {
         opts = opts || {};

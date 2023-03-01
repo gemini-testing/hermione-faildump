@@ -9,7 +9,7 @@ const faildump = require('../../lib');
 const FailCollector = require('../../lib/fail-collector');
 
 describe('hermione-faildump', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     let hermione;
 

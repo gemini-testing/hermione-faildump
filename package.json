@@ -6,11 +6,14 @@
     "type": "git",
     "url": "git@github.com:gemini-testing/hermione-faildump.git"
   },
+  "engines": {
+    "node": ">= 14.0.0"
+  },
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run lint && npm run unit",
-    "unit": "mocha test"
+    "test": "npm run unit && npm run lint",
+    "unit": "_mocha test/ --config test/.mocharc.js"
   },
   "author": "Eugene Gavryushin <job.egavr@yandex.ru>",
   "license": "ISC",
@@ -19,11 +22,11 @@
     "lodash": "^4.14.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.1.1",
+    "chai": "^4.3.7",
+    "eslint": "^8.35.0",
     "eslint-config-gemini-testing": "^2.0.0",
-    "hermione": "^0.9.1",
-    "mocha": "^2.5.3",
-    "sinon": "^1.17.4"
+    "hermione": "^5.6.2",
+    "mocha": "^10.2.0",
+    "sinon": "^15.0.1"
   }
 }
