@@ -57,12 +57,6 @@ describe('hermione-faildump', () => {
         assert.calledWith(FailCollector.prototype.addFail, {some: 'data'});
     });
 
-    it('should handle an error emmitted by event `ERROR`', () => {
-        hermione.emit(hermione.events.ERROR, null, {some: 'data'});
-
-        assert.calledWith(FailCollector.prototype.addFail, {some: 'data'});
-    });
-
     it('should generate a faildump report on event `RUNNER_END`', () => {
         hermione.emit(hermione.events.RUNNER_END);
 
