@@ -1,6 +1,6 @@
 {
   "name": "hermione-faildump",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Plugin to collect information about test fails",
   "repository": {
     "type": "git",
